@@ -1,0 +1,93 @@
+{
+  "name": "DevOpsMCP",
+  "description": "MCP API for DevOps analytics, bug tracking, and automation actions with SQLite database.",
+  "version": "1.0.2",
+  "type": "openapi",
+  "url": "http://localhost:8090/openapi.json",
+  "_cloud_run_url": "REPLACE_WITH: https://devopsmcp-xxxxx-uc.a.run.app/openapi.json",
+  "_comment": "After deploying to Cloud Run, replace the 'url' field with your Cloud Run service URL",
+  "schema": "",
+  "settings": {
+    "AZURE_DEVOPS_BASE_URL": {
+      "valueFromEnv": "AZURE_DEVOPS_BASE_URL"
+    },
+    "AZURE_DEVOPS_ORG": {
+      "valueFromEnv": "AZURE_DEVOPS_ORG"
+    },
+    "AZURE_DEVOPS_PROJECT": {
+      "valueFromEnv": "AZURE_DEVOPS_PROJECT"
+    },
+    "AZURE_DEVOPS_PAT": {
+      "valueFromEnv": "AZURE_DEVOPS_PAT"
+    },
+    "AZURE_DEVOPS_ACCESS_TOKEN": {
+      "valueFromEnv": "AZURE_DEVOPS_ACCESS_TOKEN"
+    }
+  },
+  "actions": [
+    {
+      "name": "get_bug_fix_trends",
+      "description": "Retrieve statistics and trends for bug fixes over a specified time period.",
+      "method": "POST",
+      "endpoint": "/api/bugs/get_bug_fix_trends",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "days_back": {
+            "type": "integer",
+            "description": "Number of days to look back for bug fix trends (default: 10)",
+            "default": 10
+          },
+          "project_id": {
+            "type": "integer",
+            "description": "Optional project ID (integer) to filter bug fix trends. Available: 1=HotRetailSys, 2=PaymentsGateway, 3=MobileApp, 4=DataWarehouse, 5=CloudInfra"
+          },
+          "project_name": {
+            "type": "string",
+            "description": "Optional project name (string) to filter bug fix trends. Available: HotRetailSys, PaymentsGateway, MobileApp, DataWarehouse, CloudInfra"
+          }
+        }
+      }
+    },
+    {
+      "name": "get_projects",
+      "description": "Get list of all available projects.",
+      "method": "POST",
+      "endpoint": "/api/get_projects",
+      "parameters": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "get_bugs_summary",
+      "description": "Get summary of bugs, optionally filtered by status.",
+      "method": "POST",
+      "endpoint": "/api/bugs/get_bugs_summary",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Optional status filter (Active, Closed, New, Resolved)"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Maximum number of results (default: 20, max: 100)",
+            "default": 20
+          }
+        }
+      }
+    },
+    {
+      "name": "health",
+      "description": "Check API health and database connectivity.",
+      "method": "POST",
+      "endpoint": "/api/health",
+      "parameters": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  ]
+}
