@@ -3,7 +3,12 @@ Bug-related API endpoints
 """
 import logging
 from fastapi import APIRouter, HTTPException, status
-from app.schemas.bug_schemas import GetBugFixTrendsRequest, GetBugFixTrendsResponse
+from app.schemas.bug_schemas import (
+    GetBugFixTrendsRequest, GetBugFixTrendsResponse,
+    GetActiveBugsRequest, GetActiveBugsResponse,
+    GetBugsByStatusRequest, GetBugsByStatusResponse,
+    GetBugStatisticsRequest, GetBugStatisticsResponse
+)
 from app.services.bug_service import bug_service
 
 logger = logging.getLogger(__name__)
@@ -47,6 +52,87 @@ async def get_bug_fix_trends(request: GetBugFixTrendsRequest) -> GetBugFixTrends
         )
 
 
+@router.post(
+    "/get_active_bugs",
+    response_model=GetActiveBugsResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Get Active Bugs",
+    description="Retrieve all currently active bugs with optional filters"
+)
+async def get_active_bugs(request: GetActiveBugsRequest) -> GetActiveBugsResponse:
+    """
+    Get all active bugs, optionally filtered by project and severity.
+    
+    - **project_id**: Filter by specific project
+    - **severity**: Filter by severity level (Low, Medium, High, Critical)
+    """
+    try:
+        logger.info(f"Getting active bugs: project_id={request.project_id}, severity={request.severity}")
+        result = bug_service.get_active_bugs(request)
+        return result
+    except Exception as e:
+        logger.error(f"Error getting active bugs: {str(e)}", exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to retrieve active bugs: {str(e)}"
+        )
+
+
+@router.post(
+    "/get_bugs_by_status",
+    response_model=GetBugsByStatusResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Get Bugs by Status",
+    description="Retrieve bugs filtered by status (Active, Closed, New)"
+)
+async def get_bugs_by_status(request: GetBugsByStatusRequest) -> GetBugsByStatusResponse:
+    """
+    Get bugs filtered by their status.
+    
+    - **status**: Bug status (Active, Closed, New)
+    - **project_id**: Optional project filter
+    - **limit**: Maximum number of results (default: 50)
+    """
+    try:
+        logger.info(f"Getting bugs by status: status={request.status}, project_id={request.project_id}")
+        result = bug_service.get_bugs_by_status(request)
+        return result
+    except Exception as e:
+        logger.error(f"Error getting bugs by status: {str(e)}", exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to retrieve bugs by status: {str(e)}"
+        )
+
+
+@router.post(
+    "/get_bug_statistics",
+    response_model=GetBugStatisticsResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Get Bug Statistics",
+    description="Get comprehensive statistics about bugs across all projects"
+)
+async def get_bug_statistics(request: GetBugStatisticsRequest) -> GetBugStatisticsResponse:
+    """
+    Get comprehensive bug statistics including:
+    - Total bugs by status
+    - Bugs by severity
+    - Bugs by project
+    
+    - **project_id**: Optional project filter
+    """
+    try:
+        logger.info(f"Getting bug statistics: project_id={request.project_id}")
+        result = bug_service.get_bug_statistics(request)
+        return result
+    except Exception as e:
+        logger.error(f"Error getting bug statistics: {str(e)}", exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to retrieve bug statistics: {str(e)}"
+        )
+
+
 @router.get(
     "/health",
     status_code=status.HTTP_200_OK,
@@ -58,5 +144,5 @@ async def health_check():
     return {
         "status": "healthy",
         "service": "bugs",
-        "timestamp": "2025-11-20T00:00:00Z"
+        "timestamp": "2025-11-25T00:00:00Z"
     }

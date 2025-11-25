@@ -30,8 +30,7 @@ async def lifespan(app: FastAPI):
     # Startup
     logger.info("Starting DevOpsMCP application...")
     settings = get_settings()
-    logger.info(f"Database host: {settings.db_host}")
-    logger.info(f"Database name: {settings.db_name}")
+    logger.info(f"Database path: {settings.database_path}")
     
     # Test database connection
     if db_manager.test_connection():

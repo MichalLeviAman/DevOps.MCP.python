@@ -1,31 +1,62 @@
 """
-Database connection and management for Azure SQL Database
+Database connection and management for SQLite Database
 """
-import pyodbc
+import sqlite3
 import logging
 from typing import Optional, List, Dict, Any
 from contextlib import contextmanager
+from pathlib import Path
 from app.config import get_settings
 
 logger = logging.getLogger(__name__)
 
 
 class DatabaseManager:
-    """Manages database connections and queries for Azure SQL"""
+    """Manages database connections and queries for SQLite"""
     
     def __init__(self):
         self.settings = get_settings()
-        self.connection_string = self.settings.database_connection_string
+        self.db_path = self.settings.database_path
+        self._ensure_database_exists()
+        
+    def _ensure_database_exists(self):
+        """Create database and schema if it doesn't exist"""
+        db_file = Path(self.db_path)
+        if not db_file.exists():
+            logger.info(f"Database not found at {self.db_path}, creating new database")
+            # Create empty database
+            conn = sqlite3.connect(self.db_path)
+            conn.close()
+            # Initialize schema
+            self._initialize_schema()
+        else:
+            logger.info(f"Using existing database at {self.db_path}")
+    
+    def _initialize_schema(self):
+        """Initialize database schema from schema_sqlite.sql"""
+        schema_path = Path(__file__).parent.parent / "schema_sqlite.sql"
+        if schema_path.exists():
+            logger.info(f"Initializing database schema from {schema_path}")
+            with open(schema_path, 'r', encoding='utf-8') as f:
+                schema_sql = f.read()
+            
+            with self.get_connection() as conn:
+                conn.executescript(schema_sql)
+                conn.commit()
+            logger.info("Database schema initialized successfully")
+        else:
+            logger.warning(f"Schema file not found at {schema_path}")
         
     @contextmanager
     def get_connection(self):
         """Context manager for database connections"""
         conn = None
         try:
-            conn = pyodbc.connect(self.connection_string)
+            conn = sqlite3.connect(self.db_path)
+            conn.row_factory = sqlite3.Row  # Enable column access by name
             logger.info("Database connection established")
             yield conn
-        except pyodbc.Error as e:
+        except sqlite3.Error as e:
             logger.error(f"Database connection error: {e}")
             raise
         finally:
@@ -52,18 +83,14 @@ class DatabaseManager:
                 else:
                     cursor.execute(query)
                 
-                # Get column names
-                columns = [column[0] for column in cursor.description]
-                
                 # Fetch all rows and convert to dictionaries
-                results = []
-                for row in cursor.fetchall():
-                    results.append(dict(zip(columns, row)))
+                rows = cursor.fetchall()
+                results = [dict(row) for row in rows]
                 
                 logger.info(f"Query executed successfully, returned {len(results)} rows")
                 return results
                 
-            except pyodbc.Error as e:
+            except sqlite3.Error as e:
                 logger.error(f"Query execution error: {e}")
                 raise
             finally:
@@ -93,7 +120,7 @@ class DatabaseManager:
                 logger.info(f"Non-query executed successfully, {rows_affected} rows affected")
                 return rows_affected
                 
-            except pyodbc.Error as e:
+            except sqlite3.Error as e:
                 conn.rollback()
                 logger.error(f"Non-query execution error: {e}")
                 raise

@@ -9,13 +9,14 @@ from pydantic import BaseModel, Field
 class GetBugFixTrendsRequest(BaseModel):
     """Request schema for getting bug fix trends"""
     days_back: int = Field(default=10, ge=1, le=365, description="Number of days to look back")
-    project_id: Optional[str] = Field(default=None, description="Optional project ID filter")
+    project_id: Optional[str] = Field(default=None, description="Optional project ID filter (numeric)")
+    project_name: Optional[str] = Field(default=None, description="Optional project name filter (e.g., 'HotRetailSys')")
     
     class Config:
         json_schema_extra = {
             "example": {
                 "days_back": 10,
-                "project_id": "PROJ001"
+                "project_id": "1"
             }
         }
 
@@ -57,6 +58,7 @@ class GetBugFixTrendsResponse(BaseModel):
     period_start: str = Field(description="Start date of the analysis period")
     period_end: str = Field(description="End date of the analysis period")
     project_id: Optional[str] = Field(default=None, description="Project ID filter applied")
+    project_name: Optional[str] = Field(default=None, description="Project name filter applied")
     
     class Config:
         json_schema_extra = {
@@ -76,3 +78,79 @@ class GetBugFixTrendsResponse(BaseModel):
                 "project_id": "PROJ001"
             }
         }
+
+
+class GetActiveBugsRequest(BaseModel):
+    """Request schema for getting active bugs"""
+    project_id: Optional[str] = Field(default=None, description="Optional project ID filter (numeric)")
+    project_name: Optional[str] = Field(default=None, description="Optional project name filter (e.g., 'HotRetailSys')")
+    severity: Optional[str] = Field(default=None, description="Filter by severity (Low, Medium, High, Critical)")
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "project_id": "1",
+                "severity": "High"
+            }
+        }
+
+
+class BugItem(BaseModel):
+    """Individual bug item"""
+    bug_id: int
+    azure_bug_id: str
+    title: str
+    severity: Optional[str]
+    status: str
+    created_date: Optional[str]
+    notes: Optional[str]
+
+
+class GetActiveBugsResponse(BaseModel):
+    """Response schema for active bugs"""
+    total_active_bugs: int
+    bugs: List[BugItem]
+    filters_applied: Dict[str, Any]
+    project_id: Optional[str] = Field(default=None, description="Project ID if filtered")
+    project_name: Optional[str] = Field(default=None, description="Project name if filtered")
+    
+
+class GetBugsByStatusRequest(BaseModel):
+    """Request schema for getting bugs by status"""
+    status: str = Field(description="Bug status (Active, Closed, New)")
+    project_id: Optional[str] = Field(default=None, description="Optional project ID filter (numeric)")
+    project_name: Optional[str] = Field(default=None, description="Optional project name filter (e.g., 'HotRetailSys')")
+    limit: int = Field(default=50, ge=1, le=500, description="Maximum number of results")
+
+
+class GetBugsByStatusResponse(BaseModel):
+    """Response schema for bugs by status"""
+    status: str
+    total_count: int
+    bugs: List[BugItem]
+    project_id: Optional[str] = Field(default=None, description="Project ID if filtered")
+    project_name: Optional[str] = Field(default=None, description="Project name if filtered")
+
+
+class GetBugStatisticsRequest(BaseModel):
+    """Request schema for bug statistics"""
+    project_id: Optional[str] = Field(default=None, description="Optional project ID filter (numeric)")
+    project_name: Optional[str] = Field(default=None, description="Optional project name filter (e.g., 'HotRetailSys')")
+
+
+class BugStatistics(BaseModel):
+    """Bug statistics summary"""
+    total_bugs: int
+    active_bugs: int
+    closed_bugs: int
+    new_bugs: int
+    by_severity: Dict[str, int]
+    by_project: List[Dict[str, Any]]
+
+
+class GetBugStatisticsResponse(BaseModel):
+    """Response schema for bug statistics"""
+    statistics: BugStatistics
+    generated_at: str
+    project_id: Optional[str] = Field(default=None, description="Project ID if filtered")
+    project_name: Optional[str] = Field(default=None, description="Project name if filtered")

@@ -4,24 +4,15 @@ Loads environment variables and provides application settings
 """
 from pydantic_settings import BaseSettings
 from functools import lru_cache
+import os
+from pathlib import Path
 
 
 class Settings(BaseSettings):
     """Application settings loaded from environment variables"""
     
-    # Database Configuration
-    db_host: str
-    db_name: str
-    db_user: str
-    db_pass: str
-    db_port: int = 1433
-    
-    # Azure DevOps Configuration
-    azure_devops_base_url: str = "https://dev.azure.com"
-    azure_devops_org: str = ""
-    azure_devops_project: str = ""
-    azure_devops_pat: str = ""
-    azure_devops_access_token: str = ""
+    # Database Configuration - SQLite
+    db_path: str = "devops_mcp.db"
     
     # Application Configuration
     app_host: str = "0.0.0.0"
@@ -31,20 +22,16 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
         case_sensitive = False
+        extra = "ignore"  # Ignore extra fields from .env
     
     @property
-    def database_connection_string(self) -> str:
-        """Generate Azure SQL connection string"""
-        return (
-            f"DRIVER={{ODBC Driver 18 for SQL Server}};"
-            f"SERVER={self.db_host},{self.db_port};"
-            f"DATABASE={self.db_name};"
-            f"UID={self.db_user};"
-            f"PWD={self.db_pass};"
-            f"Encrypt=yes;"
-            f"TrustServerCertificate=no;"
-            f"Connection Timeout=30;"
-        )
+    def database_path(self) -> str:
+        """Get absolute path to SQLite database"""
+        if os.path.isabs(self.db_path):
+            return self.db_path
+        # If relative path, create in project root
+        project_root = Path(__file__).parent.parent
+        return str(project_root / self.db_path)
 
 
 @lru_cache()
