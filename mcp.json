@@ -4,26 +4,9 @@
   "version": "1.0.2",
   "type": "openapi",
   "url": "http://localhost:8090/openapi.json",
-  "_cloud_run_url": "REPLACE_WITH: https://devopsmcp-xxxxx-uc.a.run.app/openapi.json",
-  "_comment": "After deploying to Cloud Run, replace the 'url' field with your Cloud Run service URL",
+  "_render_url_after_deploy": "https://devopsmcp.onrender.com/openapi.json",
+  "_comment": "After deploying to Render, replace the 'url' field with your Render service URL",
   "schema": "",
-  "settings": {
-    "AZURE_DEVOPS_BASE_URL": {
-      "valueFromEnv": "AZURE_DEVOPS_BASE_URL"
-    },
-    "AZURE_DEVOPS_ORG": {
-      "valueFromEnv": "AZURE_DEVOPS_ORG"
-    },
-    "AZURE_DEVOPS_PROJECT": {
-      "valueFromEnv": "AZURE_DEVOPS_PROJECT"
-    },
-    "AZURE_DEVOPS_PAT": {
-      "valueFromEnv": "AZURE_DEVOPS_PAT"
-    },
-    "AZURE_DEVOPS_ACCESS_TOKEN": {
-      "valueFromEnv": "AZURE_DEVOPS_ACCESS_TOKEN"
-    }
-  },
   "actions": [
     {
       "name": "get_bug_fix_trends",
