@@ -1,12 +1,10 @@
 {
   "name": "DevOpsMCP",
-  "description": "MCP API for DevOps analytics, bug tracking, and automation actions with SQLite database.",
+  "description": "MCP connector for DevOps analytics API (SQLite)",
   "version": "1.0.2",
   "type": "openapi",
   "url": "https://devops-mcp-python.onrender.com/openapi.json",
-  "_render_url_after_deploy": "https://devops-mcp-python.onrender.com/openapi.json",
-  "_comment": "After deploying to Render, replace the 'url' field with your Render service URL",
-  "schema": "",
+  "settings": {},
   "actions": [
     {
       "name": "get_bug_fix_trends",
