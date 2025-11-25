@@ -52,7 +52,11 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc",
     openapi_url="/openapi.json",
-    lifespan=lifespan
+    lifespan=lifespan,
+    servers=[
+        {"url": "https://devops-mcp-python.onrender.com", "description": "Production server"},
+        {"url": "http://localhost:8000", "description": "Local development server"}
+    ]
 )
 
 # Configure CORS
