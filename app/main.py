@@ -135,6 +135,24 @@ async def health():
     }
 
 
+@app.get(
+    "/mcp.json",
+    summary="MCP Configuration",
+    description="Model Context Protocol configuration file"
+)
+async def get_mcp_config():
+    """Return MCP configuration"""
+    from pathlib import Path
+    import json
+    
+    mcp_file = Path(__file__).parent.parent / "mcp.json"
+    if mcp_file.exists():
+        with open(mcp_file, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    
+    return {"error": "MCP configuration not found"}
+
+
 # Entry point for local development
 if __name__ == "__main__":
     import uvicorn
