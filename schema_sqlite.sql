@@ -107,7 +107,8 @@ INSERT INTO Projects (ProjectId, AzureProjectId, ProjectName, Description, IsAct
 (2, '4c978215-0830-4de9-9784-54c043b8de10', 'PaymentsGateway', 'Payment processing services & integrations.', 1, '2025-11-10 15:05:58', '2025-11-10 15:05:58'),
 (3, 'a7f3d912-5b6c-4e8a-9d2f-1c4b8e7a3f90', 'MobileApp', 'Cross-platform mobile application for customers.', 1, '2025-09-15 10:30:00', '2025-11-23 10:30:00'),
 (4, 'e9b2c5d8-4a1f-4c3e-8b7d-2f5a9c6e1d40', 'DataWarehouse', 'Enterprise data warehouse and BI platform.', 1, '2025-08-20 14:15:00', '2025-11-23 14:15:00'),
-(5, 'f1a8b4c3-7e2d-4f9a-b5c8-3d6e2a9f7b10', 'CloudInfra', 'Cloud infrastructure and DevOps automation.', 1, '2025-10-01 09:00:00', '2025-11-23 09:00:00');
+(5, 'f1a8b4c3-7e2d-4f9a-b5c8-3d6e2a9f7b10', 'CloudInfra', 'Cloud infrastructure and DevOps automation.', 1, '2025-10-01 09:00:00', '2025-11-23 09:00:00'),
+(6, 'b4e7f2c9-3a1d-4f5e-9c8b-7d2a6e4f1b30', 'AltshulerCustomers', 'Customer management and CRM system for Altshuler Shaham.', 1, '2025-01-15 08:00:00', '2025-11-26 08:00:00');
 
 -- Insert WorkItems data
 INSERT INTO WorkItems (WorkItemId, AzureWorkItemId, ProjectId, Title, WorkItemType, State, AssignedTo, CreatedDate, ChangedDate, ClosedDate, Priority, IterationPath, AreaPath, Tags, LastSync) VALUES
@@ -124,7 +125,18 @@ INSERT INTO WorkItems (WorkItemId, AzureWorkItemId, ProjectId, Title, WorkItemTy
 (11, 67023, 4, 'Bug: Dashboard query returns wrong totals', 'Bug', 'Active', 'tomer@amandigital.local', '2025-11-18 16:00:00', '2025-11-22 16:00:00', NULL, 1, 'DataWarehouse\Sprint 11', 'DataWarehouse\BI', 'dashboard;sql', '2025-11-23 16:00:00'),
 (12, 89001, 5, 'Bug: Terraform state lock timeout', 'Bug', 'Closed', 'shai@amandigital.local', '2025-10-08 08:00:00', '2025-10-12 08:00:00', '2025-10-12 08:00:00', 1, 'CloudInfra\Sprint 5', 'CloudInfra\IaC', 'terraform;devops', '2025-11-23 08:00:00'),
 (13, 89012, 5, 'Task: Migrate to Kubernetes 1.28', 'Task', 'Closed', 'lior@amandigital.local', '2025-11-01 10:00:00', '2025-11-10 10:00:00', '2025-11-10 10:00:00', 2, 'CloudInfra\Sprint 6', 'CloudInfra\K8s', 'kubernetes;upgrade', '2025-11-23 10:00:00'),
-(14, 89023, 5, 'Bug: Monitoring alerts not firing', 'Bug', 'Active', 'maya@amandigital.local', '2025-11-20 13:00:00', '2025-11-22 13:00:00', NULL, 1, 'CloudInfra\Sprint 6', 'CloudInfra\Monitoring', 'alerts;prometheus', '2025-11-23 13:00:00');
+(14, 89023, 5, 'Bug: Monitoring alerts not firing', 'Bug', 'Active', 'maya@amandigital.local', '2025-11-20 13:00:00', '2025-11-22 13:00:00', NULL, 1, 'CloudInfra\Sprint 6', 'CloudInfra\Monitoring', 'alerts;prometheus', '2025-11-23 13:00:00'),
+(15, 78001, 6, 'Bug: Customer search returns duplicate records', 'Bug', 'Closed', 'rachel@amandigital.local', '2025-02-10 09:00:00', '2025-02-15 09:00:00', '2025-02-15 09:00:00', 1, 'AltshulerCustomers\Sprint 3', 'AltshulerCustomers\Search', 'search;duplicate', '2025-11-26 09:00:00'),
+(16, 78012, 6, 'Bug: Email validation fails on international domains', 'Bug', 'Closed', 'omer@amandigital.local', '2025-03-20 10:30:00', '2025-03-25 10:30:00', '2025-03-25 10:30:00', 2, 'AltshulerCustomers\Sprint 5', 'AltshulerCustomers\Validation', 'email;validation', '2025-11-26 10:30:00'),
+(17, 78023, 6, 'Bug: Customer merge creates orphaned records', 'Bug', 'Closed', 'tal@amandigital.local', '2025-04-15 11:00:00', '2025-04-20 11:00:00', '2025-04-20 11:00:00', 1, 'AltshulerCustomers\Sprint 7', 'AltshulerCustomers\DataIntegrity', 'merge;data', '2025-11-26 11:00:00'),
+(18, 78034, 6, 'Bug: Export to Excel truncates long notes', 'Bug', 'Closed', 'nir@amandigital.local', '2025-05-10 12:00:00', '2025-05-15 12:00:00', '2025-05-15 12:00:00', 2, 'AltshulerCustomers\Sprint 9', 'AltshulerCustomers\Export', 'excel;export', '2025-11-26 12:00:00'),
+(19, 78045, 6, 'Bug: Customer portal login timeout', 'Bug', 'Closed', 'shira@amandigital.local', '2025-06-05 13:30:00', '2025-06-10 13:30:00', '2025-06-10 13:30:00', 1, 'AltshulerCustomers\Sprint 11', 'AltshulerCustomers\Auth', 'login;timeout', '2025-11-26 13:30:00'),
+(20, 78056, 6, 'Bug: Phone number formatting inconsistent', 'Bug', 'Closed', 'dor@amandigital.local', '2025-07-12 14:00:00', '2025-07-18 14:00:00', '2025-07-18 14:00:00', 2, 'AltshulerCustomers\Sprint 13', 'AltshulerCustomers\Format', 'phone;format', '2025-11-26 14:00:00'),
+(21, 78067, 6, 'Bug: Customer notes not saving properly', 'Bug', 'Active', 'yael@amandigital.local', '2025-08-20 15:00:00', '2025-11-20 15:00:00', NULL, 1, 'AltshulerCustomers\Sprint 15', 'AltshulerCustomers\Notes', 'save;notes', '2025-11-26 15:00:00'),
+(22, 78078, 6, 'Bug: Advanced search filters not persisting', 'Bug', 'Active', 'moshe@amandigital.local', '2025-09-15 16:00:00', '2025-11-18 16:00:00', NULL, 2, 'AltshulerCustomers\Sprint 17', 'AltshulerCustomers\Search', 'filters;persistence', '2025-11-26 16:00:00'),
+(23, 78089, 6, 'Bug: Customer dashboard loading slowly', 'Bug', 'Active', 'chen@amandigital.local', '2025-10-10 09:30:00', '2025-11-15 09:30:00', NULL, 1, 'AltshulerCustomers\Sprint 19', 'AltshulerCustomers\Performance', 'dashboard;performance', '2025-11-26 09:30:00'),
+(24, 78090, 6, 'Bug: Bulk update fails on large datasets', 'Bug', 'New', 'avi@amandigital.local', '2025-11-01 10:00:00', '2025-11-01 10:00:00', NULL, 1, 'AltshulerCustomers\Sprint 21', 'AltshulerCustomers\BulkOps', 'bulk;update', '2025-11-26 10:00:00'),
+(25, 78091, 6, 'Bug: Customer segmentation logic incorrect', 'Bug', 'New', 'liora@amandigital.local', '2025-11-10 11:00:00', '2025-11-10 11:00:00', NULL, 2, 'AltshulerCustomers\Sprint 21', 'AltshulerCustomers\Segmentation', 'segment;logic', '2025-11-26 11:00:00');
 
 -- Insert Pipelines data
 INSERT INTO Pipelines (PipelineId, AzurePipelineId, ProjectId, PipelineName, TriggerType, LastRunId, LastRunStatus, LastRunDate, DurationSeconds, LastSync) VALUES
@@ -133,7 +145,8 @@ INSERT INTO Pipelines (PipelineId, AzurePipelineId, ProjectId, PipelineName, Tri
 (3, 301, 3, 'MobileApp.iOS.Build', 'CI', 4523, 'Succeeded', '2025-11-22 14:00:00', 295, '2025-11-23 14:00:00'),
 (4, 302, 3, 'MobileApp.Android.Build', 'CI', 4524, 'Succeeded', '2025-11-22 14:30:00', 312, '2025-11-23 14:30:00'),
 (5, 601, 4, 'DataWarehouse.ETL.Daily', 'Scheduled', 9821, 'Succeeded', '2025-11-23 02:00:00', 1847, '2025-11-23 08:00:00'),
-(6, 801, 5, 'CloudInfra.Terraform.Apply', 'Manual', 1205, 'Succeeded', '2025-11-21 16:00:00', 421, '2025-11-23 16:00:00');
+(6, 801, 5, 'CloudInfra.Terraform.Apply', 'Manual', 1205, 'Succeeded', '2025-11-21 16:00:00', 421, '2025-11-23 16:00:00'),
+(7, 701, 6, 'AltshulerCustomers.CI', 'CI', 5632, 'Succeeded', '2025-11-25 10:00:00', 285, '2025-11-26 10:00:00');
 
 -- Insert Commits data
 INSERT INTO Commits (CommitId, AzureCommitId, ProjectId, Author, CommitDate, Comment, Branch, AssociatedWorkItemId, LastSync) VALUES
@@ -145,9 +158,12 @@ INSERT INTO Commits (CommitId, AzureCommitId, ProjectId, Author, CommitDate, Com
 (6, 'f2c8a9d3', 4, 'yael@amandigital.local', '2025-09-08 09:00:00', 'Optimize ETL batch size and timeout settings', 'main', 9, '2025-11-23 09:00:00'),
 (7, 'e7b3c4f1', 4, 'eli@amandigital.local', '2025-10-14 11:00:00', 'Add clustered indexes on fact tables', 'main', 10, '2025-11-23 11:00:00'),
 (8, 'd9a2f5e8', 5, 'shai@amandigital.local', '2025-10-11 08:00:00', 'Fix terraform state locking with DynamoDB', 'main', 12, '2025-11-23 08:00:00'),
-(9, 'c1b7e3a9', 5, 'lior@amandigital.local', '2025-11-09 10:00:00', 'Upgrade K8s cluster to version 1.28', 'main', 13, '2025-11-23 10:00:00');
+(9, 'c1b7e3a9', 5, 'lior@amandigital.local', '2025-11-09 10:00:00', 'Upgrade K8s cluster to version 1.28', 'main', 13, '2025-11-23 10:00:00'),
+(10, 'a5e9b2c4', 6, 'rachel@amandigital.local', '2025-02-14 09:00:00', 'Fix duplicate customer search results', 'main', 15, '2025-11-26 09:00:00'),
+(11, 'b7f3d1a8', 6, 'tal@amandigital.local', '2025-04-19 11:00:00', 'Resolve customer merge orphan records', 'main', 17, '2025-11-26 11:00:00'),
+(12, 'c9e2a5f6', 6, 'shira@amandigital.local', '2025-06-09 13:30:00', 'Fix customer portal login timeout', 'main', 19, '2025-11-26 13:30:00');
 
--- Insert Bugs data (30 records with realistic distribution)
+-- Insert Bugs data (55+ records with realistic distribution)
 INSERT INTO Bugs (BugId, WorkItemId, AzureBugId, Severity, Resolution, FixedBy, FixedDate, VerifiedBy, VerifiedDate, Status, Notes, LastSync) VALUES
 -- Closed bugs (recent)
 (1, 1, '12034', 'High', 'Fixed null reference in StockController', 'michal', '2025-11-10 12:06:57', 'noa', '2025-11-11 12:06:57', 'Closed', 'Verified in QA, deployed successfully.', '2025-11-11 12:06:57'),
@@ -214,7 +230,62 @@ INSERT INTO Bugs (BugId, WorkItemId, AzureBugId, Severity, Resolution, FixedBy, 
 (52, 14, '89026', 'Critical', NULL, NULL, NULL, NULL, NULL, 'Active', 'Grafana dashboard shows stale metrics.', '2025-11-22 15:00:00'),
 (53, 12, '89007', 'High', 'Fixed VPC peering connection', 'shai', '2025-10-25 10:00:00', 'maya', '2025-10-27 10:00:00', 'Closed', 'VPC peering now routes traffic correctly.', '2025-11-23 10:00:00'),
 (54, 13, '89018', 'Medium', 'Implemented pod disruption budgets', 'lior', '2025-11-18 12:00:00', 'shai', '2025-11-19 12:00:00', 'Closed', 'PDBs prevent service disruption during updates.', '2025-11-23 12:00:00'),
-(55, 14, '89028', 'High', NULL, NULL, NULL, NULL, NULL, 'New', 'CloudWatch costs exceeding budget by 200%.', '2025-11-23 14:00:00');
+(55, 14, '89028', 'High', NULL, NULL, NULL, NULL, NULL, 'New', 'CloudWatch costs exceeding budget by 200%.', '2025-11-23 14:00:00'),
+
+-- AltshulerCustomers bugs (Project 6) - Full year distribution
+-- January-February 2025 (Closed bugs)
+(56, 15, '78001', 'High', 'Fixed duplicate customer search with distinct query', 'rachel', '2025-02-15 09:00:00', 'omer', '2025-02-16 09:00:00', 'Closed', 'Search now returns unique customers only.', '2025-11-26 09:00:00'),
+(57, 15, '78002', 'Medium', 'Optimized search index for better performance', 'rachel', '2025-02-20 10:00:00', 'tal', '2025-02-22 10:00:00', 'Closed', 'Search response time improved by 60%.', '2025-11-26 10:00:00'),
+(58, 15, '78003', 'Critical', 'Fixed SQL injection in search query', 'rachel', '2025-02-25 11:00:00', 'security', '2025-02-26 11:00:00', 'Closed', 'Security vulnerability patched.', '2025-11-26 11:00:00'),
+
+-- March 2025 (Closed bugs)
+(59, 16, '78012', 'Medium', 'Added support for international email domains', 'omer', '2025-03-25 10:30:00', 'nir', '2025-03-27 10:30:00', 'Closed', 'Email validation now handles all TLDs.', '2025-11-26 10:30:00'),
+(60, 16, '78013', 'Low', 'Updated email regex pattern', 'omer', '2025-03-28 11:00:00', NULL, NULL, 'Closed', 'Email validation more robust.', '2025-11-26 11:00:00'),
+
+-- April 2025 (Closed bugs)
+(61, 17, '78023', 'High', 'Fixed customer merge orphan records', 'tal', '2025-04-20 11:00:00', 'rachel', '2025-04-22 11:00:00', 'Closed', 'Merge operation now maintains referential integrity.', '2025-11-26 11:00:00'),
+(62, 17, '78024', 'Critical', 'Added transaction rollback on merge failure', 'tal', '2025-04-25 12:00:00', 'omer', '2025-04-27 12:00:00', 'Closed', 'Database consistency maintained on errors.', '2025-11-26 12:00:00'),
+(63, 17, '78025', 'Medium', 'Improved merge conflict detection', 'tal', '2025-04-28 13:00:00', 'nir', '2025-04-30 13:00:00', 'Closed', 'Merge conflicts detected before processing.', '2025-11-26 13:00:00'),
+
+-- May 2025 (Closed bugs)
+(64, 18, '78034', 'Medium', 'Fixed Excel export truncation issue', 'nir', '2025-05-15 12:00:00', 'shira', '2025-05-17 12:00:00', 'Closed', 'Notes field now supports up to 32K characters.', '2025-11-26 12:00:00'),
+(65, 18, '78035', 'Low', 'Added CSV export option', 'nir', '2025-05-20 13:00:00', 'dor', '2025-05-22 13:00:00', 'Closed', 'Users can now export to CSV format.', '2025-11-26 13:00:00'),
+(66, 18, '78036', 'High', 'Fixed special characters encoding in export', 'nir', '2025-05-25 14:00:00', 'rachel', '2025-05-27 14:00:00', 'Closed', 'UTF-8 encoding properly handled.', '2025-11-26 14:00:00'),
+
+-- June 2025 (Closed bugs)
+(67, 19, '78045', 'High', 'Fixed customer portal login timeout', 'shira', '2025-06-10 13:30:00', 'tal', '2025-06-12 13:30:00', 'Closed', 'Session timeout increased to 30 minutes.', '2025-11-26 13:30:00'),
+(68, 19, '78046', 'Critical', 'Patched authentication bypass vulnerability', 'shira', '2025-06-15 14:00:00', 'security', '2025-06-16 14:00:00', 'Closed', 'Critical security fix deployed.', '2025-11-26 14:00:00'),
+(69, 19, '78047', 'Medium', 'Added remember me functionality', 'shira', '2025-06-20 15:00:00', 'omer', '2025-06-22 15:00:00', 'Closed', 'Users can stay logged in for 7 days.', '2025-11-26 15:00:00'),
+
+-- July 2025 (Closed bugs)
+(70, 20, '78056', 'Medium', 'Standardized phone number formatting', 'dor', '2025-07-18 14:00:00', 'nir', '2025-07-20 14:00:00', 'Closed', 'All phone numbers now in +972-XX-XXXXXXX format.', '2025-11-26 14:00:00'),
+(71, 20, '78057', 'Low', 'Added international phone number support', 'dor', '2025-07-22 15:00:00', 'shira', '2025-07-24 15:00:00', 'Closed', 'System supports all country codes.', '2025-11-26 15:00:00'),
+(72, 20, '78058', 'High', 'Fixed phone validation for mobile numbers', 'dor', '2025-07-28 16:00:00', 'rachel', '2025-07-30 16:00:00', 'Closed', 'Mobile numbers validated correctly.', '2025-11-26 16:00:00'),
+
+-- August 2025 (Active bugs)
+(73, 21, '78067', 'High', NULL, NULL, NULL, NULL, NULL, 'Active', 'Customer notes not saving when clicking outside field.', '2025-11-26 15:00:00'),
+(74, 21, '78068', 'Critical', NULL, NULL, NULL, NULL, NULL, 'Active', 'Auto-save causes data loss on concurrent edits.', '2025-11-26 15:30:00'),
+(75, 21, '78069', 'Medium', NULL, NULL, NULL, NULL, NULL, 'Active', 'Rich text formatting lost when saving notes.', '2025-11-26 16:00:00'),
+
+-- September 2025 (Active bugs)
+(76, 22, '78078', 'Medium', NULL, NULL, NULL, NULL, NULL, 'Active', 'Advanced search filters reset on page refresh.', '2025-11-26 16:00:00'),
+(77, 22, '78079', 'Low', NULL, NULL, NULL, NULL, NULL, 'Active', 'Filter presets not loading for new users.', '2025-11-26 16:30:00'),
+(78, 22, '78080', 'High', NULL, NULL, NULL, NULL, NULL, 'Active', 'Date range filter returns incorrect results.', '2025-11-26 17:00:00'),
+
+-- October 2025 (Active bugs)
+(79, 23, '78089', 'High', NULL, NULL, NULL, NULL, NULL, 'Active', 'Customer dashboard loads slowly with 1000+ records.', '2025-11-26 09:30:00'),
+(80, 23, '78088', 'Critical', NULL, NULL, NULL, NULL, NULL, 'Active', 'Dashboard crashes when loading large datasets.', '2025-11-26 10:00:00'),
+(81, 23, '78087', 'Medium', NULL, NULL, NULL, NULL, NULL, 'Active', 'Chart rendering blocks UI thread.', '2025-11-26 10:30:00'),
+
+-- November 2025 (New bugs)
+(82, 24, '78090', 'High', NULL, NULL, NULL, NULL, NULL, 'New', 'Bulk update fails on datasets with 500+ records.', '2025-11-26 10:00:00'),
+(83, 24, '78092', 'Critical', NULL, NULL, NULL, NULL, NULL, 'New', 'Bulk delete removes wrong customers.', '2025-11-26 10:30:00'),
+(84, 24, '78093', 'Medium', NULL, NULL, NULL, NULL, NULL, 'New', 'Bulk import CSV validation too strict.', '2025-11-26 11:00:00'),
+
+-- November 2025 (New bugs - continued)
+(85, 25, '78091', 'Medium', NULL, NULL, NULL, NULL, NULL, 'New', 'Customer segmentation logic excludes valid customers.', '2025-11-26 11:00:00'),
+(86, 25, '78094', 'Low', NULL, NULL, NULL, NULL, NULL, 'New', 'Segment preview shows incorrect count.', '2025-11-26 11:30:00'),
+(87, 25, '78095', 'High', NULL, NULL, NULL, NULL, NULL, 'New', 'Dynamic segments not updating in real-time.', '2025-11-26 12:00:00');
 
 -- Insert SyncLog data
 INSERT INTO SyncLog (SyncId, SyncDate, Source, EntityType, RecordsFetched, RecordsUpdated, DurationSeconds, IsSuccess, ErrorMessage) VALUES
